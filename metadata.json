@@ -1,0 +1,8 @@
+{
+  "name": "Elite Computer Services Rebuild",
+  "description": "A high-performance, conversion-focused IT services website rebuild focusing on trust, speed, and technical competence.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}
