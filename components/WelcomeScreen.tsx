@@ -38,7 +38,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             <Logo className="w-20 h-20 sm:w-32 sm:h-32 mx-auto drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
           </div>
           <h1 className="text-2xl xs:text-3xl sm:text-6xl font-black text-white uppercase tracking-tighter leading-tight mb-4">
-            ELITE<span className="text-blue-500">COMPUTER</span><span className="text-slate-400">SERVICES</span>
+            ELITE
           </h1>
           <p className="text-[10px] sm:text-xs font-black tracking-[0.3em] text-blue-100/40 uppercase">
             A Solid Foundation for a Greater Future
@@ -58,8 +58,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             <div className="relative z-10 flex flex-col h-full min-h-[160px] sm:min-h-[220px]">
               <span className="bg-yellow-400 text-blue-950 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full w-fit mb-6">Academic Wing</span>
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4">
-                Shape Your<br/><span className="text-yellow-400">Future.</span>
+                ELITE COMPUTER LITERACY
               </h2>
+              <p className="text-sm font-medium text-white/60">About</p>
               <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed mb-8 max-w-[280px]">
                 Liberia's leading computer school. Intensive practical training for all ages.
               </p>
@@ -85,8 +86,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             <div className="relative z-10 flex flex-col h-full min-h-[160px] sm:min-h-[220px]">
               <span className="bg-blue-600 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full w-fit mb-6">Enterprise Hub</span>
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4">
-                Secure Your<br/><span className="text-blue-500">Business.</span>
+                ELITE IT SERVICE
               </h2>
+              <p className="text-sm font-medium text-white/60">About</p>
               <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed mb-8 max-w-[280px]">
                 Professional hardware repair, networking, and industrial printing solutions.
               </p>
@@ -116,7 +118,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
                 Build<br/><span className="text-yellow-400">Systems.</span>
               </h2>
               <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed mb-8 max-w-[280px]">
-                Innovative automation, structured design, and technology development for Liberia's future.
+                Professional furniture repair, restoration, and maintenance for offices and homes.
               </p>
               <div className="mt-auto flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-5 transition-all">
                 <span>Learn More</span>
