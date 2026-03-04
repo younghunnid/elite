@@ -27,7 +27,11 @@ import SchoolAbout from './pages/school/SchoolAbout';
 import SchoolAdmissions from './pages/school/SchoolAdmissions';
 import SchoolFAQ from './pages/school/SchoolFAQ';
 
-type World = 'welcome' | 'it' | 'school';
+// Engineering Specific Pages
+import EngineeringHome from './pages/engineering/EngineeringHome';
+import EngineeringLayout from './components/EngineeringLayout';
+
+type World = 'welcome' | 'it' | 'school' | 'engineering';
 
 const AppContent: React.FC = () => {
   const [activeWorld, setActiveWorld] = useState<World>('welcome');
@@ -35,8 +39,8 @@ const AppContent: React.FC = () => {
   const { theme } = useTheme();
 
   useEffect(() => {
-    const savedWorld = sessionStorage.getItem('activeWorld');
-    const savedPage = sessionStorage.getItem('currentPage');
+    const savedWorld = localStorage.getItem('activeWorld');
+    const savedPage = localStorage.getItem('currentPage');
     if (savedWorld) setActiveWorld(savedWorld as World);
     if (savedPage) setCurrentPage(savedPage);
   }, []);
@@ -44,14 +48,14 @@ const AppContent: React.FC = () => {
   const handleSetWorld = (world: World) => {
     setActiveWorld(world);
     setCurrentPage('home');
-    sessionStorage.setItem('activeWorld', world);
-    sessionStorage.setItem('currentPage', 'home');
+    localStorage.setItem('activeWorld', world);
+    localStorage.setItem('currentPage', 'home');
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleNavigation = (path: string) => {
     setCurrentPage(path);
-    sessionStorage.setItem('currentPage', path);
+    localStorage.setItem('currentPage', path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -84,7 +88,7 @@ const AppContent: React.FC = () => {
         case 'store': return <Store />;
         default: return <ITHome onNavigate={handleNavigation} />;
       }
-    } else {
+    } else if (activeWorld === 'school') {
       switch (currentPage) {
         case 'home': return <SchoolHome onNavigate={handleNavigation} />;
         case 'programs': return <SchoolPrograms onNavigate={handleNavigation} />;
@@ -96,6 +100,18 @@ const AppContent: React.FC = () => {
         case 'team': return <Team />;
         default: return <SchoolHome onNavigate={handleNavigation} />;
       }
+    } else {
+      // engineering world
+      switch (currentPage) {
+        case 'contact':
+          return <Contact onNavigate={handleNavigation} activeWorld="engineering" />;
+        case 'blog': return <Blog />;
+        case 'team': return <Team />;
+        case 'portfolios': return <Portfolios />;
+        case 'store': return <Store />;
+        default:
+          return <EngineeringHome onNavigate={handleNavigation} />;
+      }
     }
   };
 
@@ -105,18 +121,26 @@ const AppContent: React.FC = () => {
         <ITLayout 
           currentPage={currentPage} 
           onNavigate={handleNavigation} 
-          onSwitchWorld={() => handleSetWorld('school')}
+          onSwitchWorld={() => handleSetWorld('welcome')}
         >
           {renderContent()}
         </ITLayout>
-      ) : (
+      ) : activeWorld === 'school' ? (
         <SchoolLayout 
           currentPage={currentPage} 
           onNavigate={handleNavigation} 
-          onSwitchWorld={() => handleSetWorld('it')}
+          onSwitchWorld={() => handleSetWorld('welcome')}
         >
           {renderContent()}
         </SchoolLayout>
+      ) : (
+        <EngineeringLayout 
+          currentPage={currentPage} 
+          onNavigate={handleNavigation} 
+          onSwitchWorld={() => handleSetWorld('welcome')}
+        >
+          {renderContent()}
+        </EngineeringLayout>
       )}
     </div>
   );

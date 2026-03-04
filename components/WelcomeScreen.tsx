@@ -4,11 +4,11 @@ import { BRAND } from '../constants';
 import Logo from './Logo';
 
 interface WelcomeScreenProps {
-  onEnter: (target: 'it' | 'school') => void;
+  onEnter: (target: 'it' | 'school' | 'engineering') => void;
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
-  const [hovered, setHovered] = useState<'it' | 'school' | null>(null);
+  const [hovered, setHovered] = useState<'it' | 'school' | 'engineering' | null>(null);
 
   return (
     <div className="relative min-h-screen w-full bg-blue-500 flex flex-col items-center overflow-x-hidden selection:bg-blue-500/30">
@@ -52,7 +52,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             onMouseLeave={() => setHovered(null)}
             onClick={() => onEnter('school')}
             className={`group relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 sm:p-14 rounded-[2rem] sm:rounded-[3rem] transition-all duration-500 text-left overflow-hidden active:scale-95 ${
-              hovered === 'it' ? 'opacity-40 blur-[1px] grayscale' : 'opacity-100 border-yellow-400/20'
+              hovered === 'it' || hovered === 'engineering' ? 'opacity-40 blur-[1px] grayscale' : 'opacity-100 border-yellow-400/20'
             }`}
           >
             <div className="relative z-10 flex flex-col h-full min-h-[160px] sm:min-h-[220px]">
@@ -79,7 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             onMouseLeave={() => setHovered(null)}
             onClick={() => onEnter('it')}
             className={`group relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 sm:p-14 rounded-[2rem] sm:rounded-[3rem] transition-all duration-500 text-left overflow-hidden active:scale-95 ${
-              hovered === 'school' ? 'opacity-40 blur-[1px] grayscale' : 'opacity-100 border-blue-500/20'
+              hovered === 'school' || hovered === 'engineering' ? 'opacity-40 blur-[1px] grayscale' : 'opacity-100 border-blue-500/20'
             }`}
           >
             <div className="relative z-10 flex flex-col h-full min-h-[160px] sm:min-h-[220px]">
@@ -98,6 +98,33 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             {/* Visual Icon background */}
             <div className="absolute -bottom-8 -right-8 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-700">
                <svg className="w-48 h-48 sm:w-64 sm:h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /></svg>
+            </div>
+          </button>
+
+          {/* New Elite Engineering card */}
+          <button
+            onMouseEnter={() => setHovered('engineering')}
+            onMouseLeave={() => setHovered(null)}
+            onClick={() => onEnter('engineering')}
+            className={`group relative bg-white/5 backdrop-blur-xl border border-white/10 p-8 sm:p-14 rounded-[2rem] sm:rounded-[3rem] transition-all duration-500 text-left overflow-hidden active:scale-95 ${
+              hovered === 'school' || hovered === 'it' ? 'opacity-40 blur-[1px] grayscale' : 'opacity-100 border-yellow-400/20'
+            }`}
+          >
+            <div className="relative z-10 flex flex-col h-full min-h-[160px] sm:min-h-[220px]">
+              <span className="bg-yellow-400 text-blue-950 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full w-fit mb-6">Engineering Wing</span>
+              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4">
+                Build<br/><span className="text-yellow-400">Systems.</span>
+              </h2>
+              <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed mb-8 max-w-[280px]">
+                Innovative automation, structured design, and technology development for Liberia's future.
+              </p>
+              <div className="mt-auto flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-widest group-hover:gap-5 transition-all">
+                <span>Learn More</span>
+                <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+              </div>
+            </div>
+            <div className="absolute -bottom-8 -right-8 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-700">
+               <svg className="w-48 h-48 sm:w-64 sm:h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
             </div>
           </button>
         </div>

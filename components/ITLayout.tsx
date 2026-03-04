@@ -45,6 +45,7 @@ const ITLayout: React.FC<ITLayoutProps> = ({ children, currentPage, onNavigate, 
     { name: 'Team', path: 'team', icon: '👥' },
     { name: 'Blog', path: 'blog', icon: '✍️' },
     { name: 'Contact', path: 'contact', icon: '📞' },
+    { name: 'Elite Engineering', path: '/elite-engine.html', icon: '⚙️', external: true },
   ];
 
   const handleLinkClick = (path: string) => {
@@ -71,9 +72,9 @@ const ITLayout: React.FC<ITLayoutProps> = ({ children, currentPage, onNavigate, 
         <div className="bg-blue-900 text-white py-2 px-6 text-[9px] uppercase tracking-[0.2em] hidden lg:block">
           <div className="max-w-7xl mx-auto flex justify-between font-black items-center">
             <span>Enterprise IT Support | {BRAND.phone}</span>
-            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-6">
               <button onClick={toggleTheme} className="hover:text-yellow-400 transition-all font-black">{theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}</button>
-              <button onClick={() => { handleLinkClick('home'); onSwitchWorld(); }} className="text-yellow-400 hover:text-white transition-all font-black">Go to Academic Wing &rarr;</button>
+              <button onClick={() => onSwitchWorld()} className="text-yellow-400 hover:text-white transition-all font-black">Back to Welcome</button>
             </div>
           </div>
         </div>
@@ -89,6 +90,18 @@ const ITLayout: React.FC<ITLayoutProps> = ({ children, currentPage, onNavigate, 
 
           <div className="hidden lg:flex items-center space-x-1">
             {links.map(l => {
+              if (l.external) {
+                return (
+                  <a
+                    key={l.name}
+                    href={l.path}
+                    className="px-4 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
+                    target="_self"
+                  >
+                    {l.name}
+                  </a>
+                );
+              }
               if (l.path === 'services') {
                 return (
                   <div key={l.path} className="relative" ref={dropdownRef}>
@@ -141,8 +154,8 @@ const ITLayout: React.FC<ITLayoutProps> = ({ children, currentPage, onNavigate, 
               );
             })}
             <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-4"></div>
-            <button onClick={() => { handleLinkClick('home'); onSwitchWorld(); }} className="px-6 py-2.5 bg-blue-950 hover:bg-blue-800 text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg active:scale-95 transition-all">
-              Academic Wing
+            <button onClick={() => onSwitchWorld()} className="px-6 py-2.5 bg-blue-950 hover:bg-blue-800 text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg active:scale-95 transition-all">
+              Back to Welcome
             </button>
           </div>
 
@@ -183,23 +196,33 @@ const ITLayout: React.FC<ITLayoutProps> = ({ children, currentPage, onNavigate, 
           <div className="flex-grow min-h-0 py-8 px-4 sm:px-6 space-y-1.5 overflow-y-auto custom-scrollbar">
             <p className="px-5 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mb-6">Directory</p>
             {links.map(l => (
-              <div key={l.path}>
-                <button 
-                  onClick={() => {
-                    if (l.path === 'services') {
-                      setIsServicesOpen(!isServicesOpen);
-                    } else {
-                      handleLinkClick(l.path);
-                    }
-                  }} 
-                  className={`flex items-center w-full p-5 rounded-[2rem] transition-all active:scale-95 group ${currentPage === l.path ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5'}`}
-                >
-                  <span className="text-2xl mr-6 transition-transform group-hover:scale-110">{l.icon}</span>
-                  <span className="font-black uppercase tracking-widest text-xs">{l.name}</span>
-                  {l.path === 'services' && (
-                    <svg className={`ml-auto w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
-                  )}
-                </button>
+              <div key={l.name}>
+                {l.external ? (
+                  <a
+                    href={l.path}
+                    className="flex items-center w-full p-5 rounded-[2rem] transition-all active:scale-95 group text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5"
+                  >
+                    <span className="text-2xl mr-6 transition-transform group-hover:scale-110">{l.icon}</span>
+                    <span className="font-black uppercase tracking-widest text-xs">{l.name}</span>
+                  </a>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      if (l.path === 'services') {
+                        setIsServicesOpen(!isServicesOpen);
+                      } else {
+                        handleLinkClick(l.path);
+                      }
+                    }} 
+                    className={`flex items-center w-full p-5 rounded-[2rem] transition-all active:scale-95 group ${currentPage === l.path ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/30' : 'text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5'}`}
+                  >
+                    <span className="text-2xl mr-6 transition-transform group-hover:scale-110">{l.icon}</span>
+                    <span className="font-black uppercase tracking-widest text-xs">{l.name}</span>
+                    {l.path === 'services' && (
+                      <svg className={`ml-auto w-4 h-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                    )}
+                  </button>
+                )}
                 
                 {l.path === 'services' && (
                   <div className={`pl-12 space-y-1 overflow-hidden transition-all ease-in-out duration-500 ${isServicesOpen ? 'max-h-96 mt-2 mb-4' : 'max-h-0'}`}>
@@ -227,13 +250,13 @@ const ITLayout: React.FC<ITLayoutProps> = ({ children, currentPage, onNavigate, 
 
           <div className="p-8 border-t border-slate-100 dark:border-white/5 mt-auto space-y-6 bg-slate-50/50 dark:bg-black/20">
              <button 
-                onClick={() => { handleLinkClick('home'); onSwitchWorld(); }} 
-                className="w-full flex flex-col items-center gap-3 p-8 bg-blue-950 hover:bg-blue-900 text-white rounded-[2.5rem] transition-all shadow-2xl group active:scale-95"
+               onClick={() => onSwitchWorld()} 
+               className="w-full flex flex-col items-center gap-3 p-8 bg-blue-950 hover:bg-blue-900 text-white rounded-[2.5rem] transition-all shadow-2xl group active:scale-95"
              >
-                <span className="text-[10px] font-black uppercase tracking-widest opacity-50">Transfer to</span>
-                <span className="font-black uppercase tracking-tight text-base flex items-center gap-3">
-                   Academic Wing &rarr;
-                </span>
+               <span className="text-[10px] font-black uppercase tracking-widest opacity-50">Transfer to</span>
+               <span className="font-black uppercase tracking-tight text-base flex items-center gap-3">
+                 Back to Welcome
+               </span>
              </button>
              <p className="text-[8px] text-center font-black uppercase tracking-widest text-slate-400 italic">Trusted Tech Excellence</p>
           </div>

@@ -31,6 +31,7 @@ const SchoolLayout: React.FC<SchoolLayoutProps> = ({ children, currentPage, onNa
     { name: 'Admissions', path: 'admissions', icon: '📝' },
     { name: 'FAQs', path: 'faq', icon: '❓' },
     { name: 'Contact', path: 'contact', icon: '📬' },
+    { name: 'Elite Engineering', path: '/elite-engine.html', icon: '⚙️', external: true },
   ];
 
   const handleLinkClick = (path: string) => {
@@ -54,10 +55,10 @@ const SchoolLayout: React.FC<SchoolLayoutProps> = ({ children, currentPage, onNa
               </button>
             </div>
             <button 
-              onClick={() => { handleLinkClick('home'); onSwitchWorld(); }} 
+              onClick={() => onSwitchWorld()} 
               className="bg-blue-950 text-white px-4 py-1.5 rounded-full hover:bg-blue-800 transition-all font-black uppercase tracking-widest text-[9px] flex items-center gap-2"
             >
-              Go to IT Services <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+              Back to Welcome
             </button>
           </div>
         </div>
@@ -72,20 +73,33 @@ const SchoolLayout: React.FC<SchoolLayoutProps> = ({ children, currentPage, onNa
           </div>
 
           <div className="hidden lg:flex items-center space-x-1">
-            {links.map(l => (
-              <button 
-                key={l.path} 
-                onClick={() => handleLinkClick(l.path)} 
-                className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${
-                  currentPage === l.path ? 'bg-yellow-400 text-blue-950 shadow-lg' : 'text-blue-100 hover:bg-white/10'
-                }`}
-              >
-                {l.name}
-              </button>
-            ))}
+            {links.map(l => {
+              if (l.external) {
+                return (
+                  <a
+                    key={l.name}
+                    href={l.path}
+                    className="px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all text-blue-100 hover:bg-white/10"
+                  >
+                    {l.name}
+                  </a>
+                );
+              }
+              return (
+                <button 
+                  key={l.path} 
+                  onClick={() => handleLinkClick(l.path)} 
+                  className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${
+                    currentPage === l.path ? 'bg-yellow-400 text-blue-950 shadow-lg' : 'text-blue-100 hover:bg-white/10'
+                  }`}
+                >
+                  {l.name}
+                </button>
+              );
+            })}
             <div className="h-6 w-px bg-white/10 mx-4"></div>
-            <button onClick={() => { handleLinkClick('home'); onSwitchWorld(); }} className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg transition-all active:scale-95">
-              IT Services
+            <button onClick={() => onSwitchWorld()} className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg transition-all active:scale-95">
+              Back to Welcome
             </button>
           </div>
 
@@ -128,26 +142,37 @@ const SchoolLayout: React.FC<SchoolLayoutProps> = ({ children, currentPage, onNa
           <div className="flex-grow min-h-0 py-8 px-4 sm:px-6 space-y-2 overflow-y-auto custom-scrollbar">
             <p className="px-6 text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-6">Course Directory</p>
             {links.map(l => (
-              <button 
-                key={l.path}
-                onClick={() => handleLinkClick(l.path)} 
-                className={`flex items-center w-full p-5 rounded-[2.5rem] transition-all group active:scale-95 ${currentPage === l.path ? 'bg-yellow-400 text-blue-950 shadow-2xl' : 'text-blue-100 hover:bg-white/5'}`}
-              >
-                <span className="text-3xl mr-6 group-hover:scale-110 transition-transform">{l.icon}</span>
-                <span className="font-black uppercase tracking-widest text-xs">{l.name}</span>
-              </button>
+              <div key={l.name}>
+                {l.external ? (
+                  <a
+                    href={l.path}
+                    className="flex items-center w-full p-5 rounded-[2.5rem] transition-all group active:scale-95 text-blue-100 hover:bg-white/5"
+                  >
+                    <span className="text-3xl mr-6 group-hover:scale-110 transition-transform">{l.icon}</span>
+                    <span className="font-black uppercase tracking-widest text-xs">{l.name}</span>
+                  </a>
+                ) : (
+                  <button 
+                    onClick={() => handleLinkClick(l.path)} 
+                    className={`flex items-center w-full p-5 rounded-[2.5rem] transition-all group active:scale-95 ${currentPage === l.path ? 'bg-yellow-400 text-blue-950 shadow-2xl' : 'text-blue-100 hover:bg-white/5'}`}
+                  >
+                    <span className="text-3xl mr-6 group-hover:scale-110 transition-transform">{l.icon}</span>
+                    <span className="font-black uppercase tracking-widest text-xs">{l.name}</span>
+                  </button>
+                )}
+              </div>
             ))}
           </div>
 
           <div className="p-8 bg-blue-950 border-t border-white/5 mt-auto space-y-6">
              <button 
-                onClick={() => { handleLinkClick('home'); onSwitchWorld(); }} 
-                className="w-full flex flex-col items-center gap-3 p-8 bg-blue-600 hover:bg-blue-700 text-white rounded-[2.5rem] transition-all shadow-2xl active:scale-95 group"
+               onClick={() => onSwitchWorld()} 
+               className="w-full flex flex-col items-center gap-3 p-8 bg-blue-600 hover:bg-blue-700 text-white rounded-[2.5rem] transition-all shadow-2xl active:scale-95 group"
              >
-                <span className="text-[10px] font-black uppercase tracking-widest opacity-60">IT Support Wing</span>
-                <span className="font-black uppercase tracking-tight text-base flex items-center gap-3">
-                   IT Services <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                </span>
+               <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Back to Welcome</span>
+               <span className="font-black uppercase tracking-tight text-base flex items-center gap-3">
+                 Back to Welcome
+               </span>
              </button>
              <p className="text-[9px] text-center font-black uppercase tracking-[0.3em] text-blue-500/50 italic">Solid Foundation • Greater Result</p>
           </div>

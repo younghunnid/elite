@@ -4,16 +4,32 @@ import { BRAND } from '../constants';
 
 interface ContactProps {
   onNavigate?: (path: string) => void;
-  activeWorld: 'it' | 'school';
+  activeWorld: 'it' | 'school' | 'engineering';
 }
 
 const Contact: React.FC<ContactProps> = ({ onNavigate, activeWorld }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: activeWorld === 'it' ? 'Repair' : 'Enrollment',
-    message: ''
+  const engineeringOptions = [
+    { value: 'Restoration', label: 'Furniture & Asset Restoration' },
+    { value: 'Structural', label: 'Structural Builds' },
+    { value: 'Automation', label: 'Systems & Automation' },
+    { value: 'Consultation', label: 'Site Consultation' },
+    { value: 'Workshop', label: 'Workshops & Training' },
+    { value: 'General', label: 'General Engineering Inquiry' }
+  ];
+
+  const [formData, setFormData] = useState(() => {
+    const defaultSubject = activeWorld === 'school'
+      ? 'Enrollment'
+      : activeWorld === 'engineering'
+        ? engineeringOptions[0].value
+        : 'Repair';
+    return {
+      name: '',
+      email: '',
+      phone: '',
+      subject: defaultSubject,
+      message: ''
+    };
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -34,12 +50,16 @@ const Contact: React.FC<ContactProps> = ({ onNavigate, activeWorld }) => {
     { value: 'General', label: 'General Academic Question' }
   ];
 
-  const dropdownOptions = activeWorld === 'it' ? itOptions : schoolOptions;
+  const dropdownOptions = activeWorld === 'engineering'
+    ? engineeringOptions
+    : activeWorld === 'it'
+      ? itOptions
+      : schoolOptions;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const subjectLine = `${activeWorld === 'it' ? 'Technical' : 'Academic'} Inquiry: ${formData.subject} from ${formData.name}`;
+    const subjectLine = `${activeWorld === 'it' || activeWorld === 'engineering' ? 'Technical' : 'Academic'} Inquiry: ${formData.subject} from ${formData.name}`;
     const bodyContent = `Full Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nInterested In: ${formData.subject}\n\nMessage Details:\n${formData.message}`;
     
     const mailtoUrl = `mailto:${BRAND.email}?subject=${encodeURIComponent(subjectLine)}&body=${encodeURIComponent(bodyContent)}`;
@@ -60,7 +80,7 @@ const Contact: React.FC<ContactProps> = ({ onNavigate, activeWorld }) => {
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tighter">Let's Talk Tech</h1>
           <p className="text-blue-100 text-sm sm:text-xl max-w-2xl mx-auto leading-relaxed opacity-80 font-medium">
-            {activeWorld === 'it' 
+            {activeWorld === 'it' || activeWorld === 'engineering'
               ? "Expert IT support and industrial-scale solutions in the heart of Paynesville."
               : "Professional computer training for all ages in the heart of Paynesville."
             }
@@ -80,7 +100,7 @@ const Contact: React.FC<ContactProps> = ({ onNavigate, activeWorld }) => {
                     <svg className="w-5 h-5 sm:w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                   </div>
                   <div>
-                    <p className="text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-1">{activeWorld === 'it' ? 'Support Line' : 'Enrollment Line'}</p>
+                    <p className="text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-1">{activeWorld === 'it' || activeWorld === 'engineering' ? 'Support Line' : 'Enrollment Line'}</p>
                     <p className="text-sm sm:text-lg font-black text-slate-900 dark:text-white">{BRAND.phone}</p>
                   </div>
                 </div>

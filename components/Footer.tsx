@@ -29,6 +29,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li><button onClick={() => onNavigate('services')} className="hover:text-yellow-400 transition-colors uppercase text-[10px] tracking-widest font-black">Services</button></li>
               <li><button onClick={() => onNavigate('portfolios')} className="hover:text-yellow-400 transition-colors uppercase text-[10px] tracking-widest font-black">Portfolios</button></li>
               <li><button onClick={() => onNavigate('team')} className="hover:text-yellow-400 transition-colors uppercase text-[10px] tracking-widest font-black">Team</button></li>
+              <li><a href="/elite-engine.html" className="hover:text-yellow-400 transition-colors uppercase text-[10px] tracking-widest font-black">Elite Engineering</a></li>
             </ul>
           </div>
 
