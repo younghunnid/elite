@@ -113,7 +113,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onEnter }) => {
             <div className="relative z-10 flex flex-col h-full min-h-[160px] sm:min-h-[220px]">
               <span className="bg-yellow-400 text-blue-950 text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full w-fit mb-6">Engineering Wing</span>
               <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] mb-4">
-                Build<br/><span className="text-yellow-400">Systems.</span>
+                Build<br/><span className="text-yellow-400">Tables.</span>
               </h2>
               <p className="text-slate-400 text-sm sm:text-base font-medium leading-relaxed mb-8 max-w-[280px]">
                 Innovative automation, structured design, and technology development for Liberia's future.
